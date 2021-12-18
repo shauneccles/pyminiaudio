@@ -35,7 +35,7 @@ jobs:
           CIBW_BEFORE_TEST_WINDOWS: mkdir ${{runner.temp}}\examples\samples && copy {project}\examples\samples\* ${{runner.temp}}\examples\samples\ && dir ${{runner.temp}}\examples\samples\
           CIBW_TEST_REQUIRES: pytest
           CIBW_TEST_COMMAND_LINUX: "pytest {project}/tests"
-          CIBW_TEST_COMMAND_WINDOWS: "pytest ---rootdir=${{runner.temp}} {projects}/tests"
+          CIBW_TEST_COMMAND_WINDOWS: "pytest --rootdir=${{runner.temp}} {projects}/tests"
 
       - uses: actions/upload-artifact@v2
         with:
