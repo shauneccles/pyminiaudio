@@ -32,9 +32,9 @@ jobs:
         uses: pypa/cibuildwheel@v2.3.1
         env:
           CIBW_BEFORE_TEST_LINUX: mkdir -p ~/examples/samples && cp -R {project}/examples/samples/* ~/examples/samples/ && ls -la ~/examples/samples/
-          CIBW_BEFORE_TEST_WINDOWS: mkdir ${{runner.temp}}\examples\samples && copy {project}\examples\samples\* ${{runner.temp}}\examples\samples\ && dir ${{runner.temp}}\examples\samples\
+          CIBW_BEFORE_TEST_WINDOWS: mkdir D:\a\pyminiaudio\pyminiaudioD:\a\pyminiaudio\pyminiaudio\examples\samples && copy {project}\examples\samples\* D:\a\pyminiaudio\pyminiaudio\examples\samples\ && dir D:\a\pyminiaudio\pyminiaudio\examples\samples\
           CIBW_TEST_REQUIRES: pytest
-          CIBW_TEST_COMMAND: "pytest {project}/tests"
+          CIBW_TEST_COMMAND: "pytest {project}\tests"
 
 
       - uses: actions/upload-artifact@v2
