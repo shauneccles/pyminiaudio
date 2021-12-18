@@ -27,25 +27,25 @@ class FileSource(miniaudio.StreamableSource):
 
 @pytest.fixture()
 def streamable_wav_source():
-    return FileSource("examples/samples/music.wav")
+    return FileSource("tests/test_files/music.wav")
 
 
 @pytest.fixture()
 def streamable_mp3_source():
-    return FileSource("examples/samples/music.mp3")
+    return FileSource("tests/test_files/music.mp3")
 
 
 @pytest.fixture()
 def streamable_flac_source():
-    return FileSource("examples/samples/music.flac")
+    return FileSource("tests/test_files/music.flac")
 
 
 @pytest.fixture()
 def streamable_vorbis_source():
-    return FileSource("examples/samples/music.ogg")
+    return FileSource("tests/test_files/music.ogg")
 
 
 @pytest.fixture()
 def streamable_unknown_source():
-    return FileSource("examples/samples/music.mp3")
+    return FileSource("tests/test_files/music.mp3")
 
