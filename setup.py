@@ -18,7 +18,7 @@ def miniaudio_test_suite():
 
 if __name__ == "__main__":
     setup(
-        name="miniaudio",
+        name="miniaudio-shaun-test-build",
         version=PKG_VERSION,
         cffi_modules=["build_ffi_module.py:ffibuilder"],
         include_dirs=[miniaudio_path],
