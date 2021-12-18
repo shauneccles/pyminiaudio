@@ -185,7 +185,7 @@ def test_mp3_read():
 
 def test_mp3_stream():
     frames_to_read = 256
-    stream = miniaudio.mp3_stream_file("examples/samples/music.mp3", frames_to_read)
+    stream = miniaudio.mp3_stream_file("tests/samples/music.mp3", frames_to_read)
     assert len(next(stream)) >= 512
     assert len(next(stream)) >= 512
     stream.close()
@@ -193,7 +193,7 @@ def test_mp3_stream():
 
 def test_wav_stream():
     frames_to_read = 256
-    stream = miniaudio.wav_stream_file("examples/samples/music.wav", frames_to_read)
+    stream = miniaudio.wav_stream_file("tests/samples/music.wav", frames_to_read)
     assert len(next(stream)) >= 512
     assert len(next(stream)) >= 512
     stream.close()
@@ -201,7 +201,7 @@ def test_wav_stream():
 
 def test_flac_stream():
     frames_to_read = 256
-    stream = miniaudio.flac_stream_file("examples/samples/music.flac", frames_to_read)
+    stream = miniaudio.flac_stream_file("tests/samples/music.flac", frames_to_read)
     assert len(next(stream)) >= 512
     assert len(next(stream)) >= 512
     stream.close()
@@ -209,7 +209,7 @@ def test_flac_stream():
 
 def test_oggvorbis_stream():
     frames_to_read = 256
-    stream = miniaudio.vorbis_stream_file("examples/samples/music.ogg", frames_to_read)
+    stream = miniaudio.vorbis_stream_file("tests/samples/music.ogg", frames_to_read)
     assert len(next(stream)) >= 512
     assert len(next(stream)) >= 512
     stream.close()
