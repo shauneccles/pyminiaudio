@@ -16,7 +16,8 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-11, macos-latest]
+        # Need to be PIP517 build in order to avoid setuptools bug - https://github.com/pypa/cibuildwheel/issues/813
+        os: [ubuntu-latest, windows-latest ] , #macos-11, macos-latest]
 
     steps:
       - uses: actions/checkout@v2
