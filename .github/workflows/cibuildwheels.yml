@@ -32,7 +32,7 @@ jobs:
         uses: pypa/cibuildwheel@v2.3.1
         env:
         # I can't get windows tests to work, but at least here's linux testing the built wheels
-          CIBW_BEFORE_TEST_LINUX: mkdir -p ~/examples/samples && cp -R {project}/examples/samples/* ~/examples/samples/ && ls -la ~/examples/samples/
+          CIBW_BEFORE_TEST_LINUX: mkdir -p ~/examples/samples && cp -R {project}/examples/samples/* ~/examples/samples/
           CIBW_TEST_REQUIRES: pytest
           CIBW_TEST_COMMAND_LINUX: "pytest {project}/tests"
 
