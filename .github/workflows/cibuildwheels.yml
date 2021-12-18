@@ -31,7 +31,7 @@ jobs:
       - name: Build wheels
         uses: pypa/cibuildwheel@v2.3.1
         env:
-          CIBW_BEFORE_TEST: mkdir -p /example/samples && cp -R {project}/examples/samples/* /example/samples/ && ls -la /examples/samples/
+          CIBW_BEFORE_TEST: mkdir -p /examples/samples && cp -R {project}/examples/samples/* /example/samples/ && ls -la /examples/samples/
           CIBW_TEST_REQUIRES: pytest
           CIBW_TEST_COMMAND: "pytest {project}/tests"
 
