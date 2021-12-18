@@ -30,14 +30,14 @@ jobs:
 
       - name: Build wheels
         uses: pypa/cibuildwheel@v2.3.1
-        # env:
-        #   CIBW_BEFORE_LINUX: >
-        #     sudo yum update -y &&
-        #     sudo yum install -y make python-dev sox pkg-config libavcodec-dev libavformat-dev libavresample-dev libavutil-dev libsndfile1-dev libsamplerate-dev librubberband-dev libvorbis-dev libflac-dev
+        env:
+          CIBW_TEST_REQUIRES: pytest
+          CIBW_TEST_COMMAND: "pytest {project}/tests"
 
 
       - uses: actions/upload-artifact@v2
         with:
+          name: wheels
           path: ./wheelhouse/*.whl
 
   build_sdist:
