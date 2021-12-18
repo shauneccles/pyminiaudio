@@ -39,7 +39,7 @@ jobs:
 
       - uses: actions/upload-artifact@v2
         with:
-          name: wheels
+          name: pypi_artifacts
           path: ./wheelhouse/*.whl
 
   build_sdist:
@@ -58,6 +58,7 @@ jobs:
 
       - uses: actions/upload-artifact@v2
         with:
+          name: pypi_artifacts
           path: dist/*.tar.gz
 
   upload_pypi:
@@ -70,7 +71,7 @@ jobs:
     steps:
       - uses: actions/download-artifact@v2
         with:
-          name: artifact
+          name: pypi_artifacts
           path: dist
 
       - uses: pypa/gh-action-pypi-publish@v1.4.2
