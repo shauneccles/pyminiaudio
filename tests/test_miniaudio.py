@@ -1,6 +1,6 @@
 import miniaudio
 from unittest import mock
-
+import os
 
 def dummy_generator():
     while True:
@@ -77,7 +77,8 @@ def test_devices():
 #
 #         stop_callback.assert_called_once()
 #         assert duplex.running is False
-
+def get_test_sample_location(filename):
+    return os.getenv("TEST_SAMPLE_PATH" + os.path.join(filename), f"examples/samples/{filename}")
 
 def test_cffi_api_calls_parameters_correct():
     import ast
@@ -106,12 +107,15 @@ def test_cffi_api_calls_parameters_correct():
 
 
 def load_sample(name):
-    with open("examples/samples/" + name, "rb") as f:
+    sample_location = os.getenv("TEST_SAMPLE_PATH", "examples/samples/")
+    with open(sample_location + name, "rb") as f:
         return f.read()
 
 
+
 def test_file_info():
-    info = miniaudio.get_file_info("examples/samples/music.ogg")
+    
+    info = miniaudio.get_file_info(get_test_sample_location("music.ogg"))
     assert info.file_format == miniaudio.FileFormat.VORBIS
     assert info.sample_rate == 22050
     assert info.sample_format == miniaudio.SampleFormat.SIGNED16
@@ -185,7 +189,7 @@ def test_mp3_read():
 
 def test_mp3_stream():
     frames_to_read = 256
-    stream = miniaudio.mp3_stream_file("examples/samples/music.mp3", frames_to_read)
+    stream = miniaudio.mp3_stream_file(get_test_sample_location("music.mp3"), frames_to_read)
     assert len(next(stream)) >= 512
     assert len(next(stream)) >= 512
     stream.close()
@@ -193,7 +197,7 @@ def test_mp3_stream():
 
 def test_wav_stream():
     frames_to_read = 256
-    stream = miniaudio.wav_stream_file("examples/samples/music.wav", frames_to_read)
+    stream = miniaudio.wav_stream_file(get_test_sample_location("music.wav"), frames_to_read)
     assert len(next(stream)) >= 512
     assert len(next(stream)) >= 512
     stream.close()
@@ -201,7 +205,7 @@ def test_wav_stream():
 
 def test_flac_stream():
     frames_to_read = 256
-    stream = miniaudio.flac_stream_file("examples/samples/music.flac", frames_to_read)
+    stream = miniaudio.flac_stream_file(get_test_sample_location("music.flac"), frames_to_read)
     assert len(next(stream)) >= 512
     assert len(next(stream)) >= 512
     stream.close()
@@ -209,7 +213,7 @@ def test_flac_stream():
 
 def test_oggvorbis_stream():
     frames_to_read = 256
-    stream = miniaudio.vorbis_stream_file("examples/samples/music.ogg", frames_to_read)
+    stream = miniaudio.vorbis_stream_file(get_test_sample_location("music.ogg"), frames_to_read)
     assert len(next(stream)) >= 512
     assert len(next(stream)) >= 512
     stream.close()
