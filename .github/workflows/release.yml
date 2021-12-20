@@ -1,13 +1,10 @@
 name: Build and upload to PyPI
 
-# Build on every branch push, tag push, and pull request change:
-# on: [push, pull_request]
-# Alternatively, to publish when a (published) GitHub Release is created, use the following:
 on:
   release:
     types:
       - published
-
+  workflow_dispatch:
 jobs:
   build_wheels:
     name: Build wheels on ${{ matrix.os }}
@@ -29,10 +26,11 @@ jobs:
       - name: Build wheels
         uses: pypa/cibuildwheel@v2.3.1
         env:
-        # I can't get windows tests to work, but at least here's linux testing the built wheels
-          CIBW_BEFORE_TEST_LINUX: mkdir -p ~/examples/samples && cp -R {project}/examples/samples/* ~/examples/samples/
+
+          CIBW_ENVIRONMENT_LINUX: TEST_SAMPLE_PATH='{project}/examples/samples/'
+          CIBW_ENVIRONMENT_WINDOWS: TEST_SAMPLE_PATH='{project}\examples\samples\' 
           CIBW_TEST_REQUIRES: pytest
-          CIBW_TEST_COMMAND_LINUX: "pytest {project}/tests"
+          CIBW_TEST_COMMAND: "pytest {project}/tests"
 
 
       - uses: actions/upload-artifact@v2
@@ -62,10 +60,7 @@ jobs:
   upload_pypi:
     needs: [build_wheels, build_sdist]
     runs-on: ubuntu-latest
-    # upload to PyPI on every tag starting with 'v'
-    if: github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags/v')
-    # alternatively, to publish when a GitHub Release is created, use the following rule:
-    # if: github.event_name == 'release' && github.event.action == 'published'
+    if: github.event_name == 'release' && github.event.action == 'published'
     steps:
       - uses: actions/download-artifact@v2
         with:
@@ -76,4 +71,5 @@ jobs:
         with:
           user: __token__
           password: ${{ secrets.PYPI_TEST_TOKEN }}
+          # To test, remove uncomment below and it will upload to the test
           repository_url: https://test.pypi.org/legacy/
